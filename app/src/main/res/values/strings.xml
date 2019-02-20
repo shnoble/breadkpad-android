@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">AndroidBreakpad</string>
-    <string name="init_button">Initialize</string>
     <string name="crash_button">Crash</string>
 </resources>

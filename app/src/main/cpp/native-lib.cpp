@@ -19,7 +19,6 @@ bool DumpCallback(const google_breakpad::MinidumpDescriptor& descriptor,
     return succeeded;
 }
 
-
 void Crash() {
     volatile int* a = reinterpret_cast<volatile int*>(NULL);
     *a = 1;
@@ -32,6 +31,8 @@ Java_com_daya_android_breakpad_MainActivity_initialize(
         jstring filepath) {
     DEBUG("breakpad-android", "initialize call");
     const char *path = env->GetStringUTFChars(filepath, 0);
+    DEBUG("breakpad-android", "Dump path: %s", path);
+
     google_breakpad::MinidumpDescriptor descriptor(path);
     exceptionHandler = new google_breakpad::ExceptionHandler(descriptor, nullptr, DumpCallback, nullptr, true, -1);
 }
