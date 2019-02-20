@@ -5,6 +5,8 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -UNDEBUG")
+
 set(BREAKPAD_SRC_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/cpp/breakpad)
 
 # include breakpad source,
@@ -37,7 +39,7 @@ file(GLOB BREAKPAD_SOURCES
 # Gradle automatically packages shared libraries with your APK.
 
 add_library( # Sets the name of the library.
-             breakpad-lib
+             breakpad-android
 
              # Sets the library as a shared library.
              STATIC
@@ -63,7 +65,7 @@ find_library( # Sets the name of the path variable.
 # build script, prebuilt third-party libraries, or system libraries.
 
 target_link_libraries( # Specifies the target library.
-                       breakpad-lib
+                       breakpad-android
 
                        # Links the target library to the log library
                        # included in the NDK.
