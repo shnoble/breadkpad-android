@@ -4,21 +4,22 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 
+// http://pluu.github.io/blog/android/jni/2015/06/12/android-google-breakpad-javacallback/
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Example of a call to a native method
-        sample_text.text = stringFromJNI()
-    }
+        initButton.setOnClickListener {
+            initialize()
+        }
 
-    /**
-     * A native method that is implemented by the 'native-lib' native library,
-     * which is packaged with this application.
-     */
-    external fun stringFromJNI(): String
+        crashButton.setOnClickListener {
+            crash()
+        }
+    }
 
     companion object {
 
@@ -27,4 +28,7 @@ class MainActivity : AppCompatActivity() {
             System.loadLibrary("native-lib")
         }
     }
+
+    external fun initialize()
+    external fun crash()
 }
