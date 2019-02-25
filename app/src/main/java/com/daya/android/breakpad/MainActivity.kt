@@ -6,6 +6,7 @@ import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
@@ -31,6 +32,16 @@ class MainActivity : AppCompatActivity() {
 
         crashButton.setOnClickListener {
             crash()
+        }
+
+        val defaultUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+            Log.e("breakpad-android", "Uncaught exception.")
+            Thread.sleep(5000)
+            // Try everything to make sure this process goes away.
+            // android.os.Process.killProcess(android.os.Process.myPid());
+            // System.exit(10);
+            defaultUncaughtExceptionHandler.uncaughtException(thread, throwable)
         }
     }
 
